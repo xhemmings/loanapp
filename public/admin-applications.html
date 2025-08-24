@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Applications | Loan Management System</title>
+  <title>Loan Application System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -29,127 +29,82 @@
       background: linear-gradient(135deg, var(--dark), var(--primary));
       color: white;
       min-height: 100vh;
-      padding: 0;
+      padding: 20px;
     }
     
-    .admin-container {
-      max-width: 1600px;
+    .container {
+      max-width: 1000px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* Sidebar Styles */
-    .sidebar {
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
+    header {
+      text-align: center;
       padding: 20px 0;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .logo {
-      padding: 0 20px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .logo i {
-      font-size: 28px;
+      font-size: 36px;
+      margin-bottom: 10px;
       color: var(--accent);
     }
     
-    .logo h1 {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    
-    .nav-links {
-      list-style: none;
-      padding: 0 15px;
-    }
-    
-    .nav-links li {
+    h1 {
+      font-size: 32px;
       margin-bottom: 5px;
     }
     
-    .nav-links a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
-      color: var(--light);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.3s ease;
+    .subtitle {
+      color: #c3cfe2;
+      font-size: 18px;
+      margin-bottom: 30px;
     }
     
-    .nav-links a:hover, .nav-links a.active {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-    
-    .nav-links a i {
-      width: 24px;
-      text-align: center;
-    }
-    
-    /* Main Content Styles */
-    .main-content {
-      padding: 20px;
-      overflow-y: auto;
-      max-height: 100vh;
-    }
-    
-    .top-bar {
+    .navigation {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 15px 0;
       margin-bottom: 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .user-avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: var(--secondary);
-      display: flex;
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
+      text-decoration: none;
     }
     
-    .page-title {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .btn i {
+      margin-right: 8px;
     }
     
-    .page-title i {
-      color: var(--accent);
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
     }
     
-    .page-subtitle {
-      color: #bbdefb;
-      margin-bottom: 30px;
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
     }
     
-    /* Filter Bar */
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
     .filter-bar {
       display: flex;
       gap: 15px;
@@ -158,6 +113,7 @@
       padding: 15px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
+      flex-wrap: wrap;
     }
     
     .filter-bar label {
@@ -173,33 +129,18 @@
       color: white;
     }
     
-    .filter-bar button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+    .status {
+      color: #bbdefb;
+      margin-left: auto;
     }
     
-    .filter-bar button:hover {
-      background: var(--secondary);
-    }
-    
-    /* Table Styles */
     .table-container {
       overflow: auto;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      min-height: 400px;
-      display: flex;
-      flex-direction: column;
+      margin-bottom: 30px;
     }
     
     table {
@@ -267,11 +208,6 @@
       text-align: center;
       padding: 60px 20px;
       color: #bbdefb;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
     
     .empty-state i {
@@ -280,26 +216,23 @@
       color: var(--accent);
     }
     
-    .empty-state p {
-      margin-top: 10px;
-      font-size: 16px;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 992px) {
-      .admin-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .sidebar {
-        display: none;
-      }
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #bbdefb;
     }
     
     @media (max-width: 768px) {
       .filter-bar {
         flex-direction: column;
         align-items: stretch;
+      }
+      
+      .status {
+        margin-left: 0;
+        text-align: center;
       }
       
       th, td {
@@ -309,136 +242,158 @@
   </style>
 </head>
 <body>
-  <div class="admin-container">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
+  <div class="container">
+    <header>
       <div class="logo">
-        <i class="fas fa-university"></i>
-        <h1>LoanAdmin Pro</h1>
+        <i class="fas fa-hand-holding-usd"></i>
       </div>
-      
-      <ul class="nav-links">
-        <li>
-          <a href="admin-dashboard.html">
-            <i class="fas fa-tachometer-alt"></i>
-            Dashboard
-          </a>
-        </li>
-        <li>
-          <a href="admin.html">
-            <i class="fas fa-tags"></i>
-            Manage Promotions
-          </a>
-        </li>
-        <li>
-          <a href="#" class="active">
-            <i class="fas fa-file-contract"></i>
-            Manage Applications
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fas fa-users"></i>
-            User Management
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fas fa-chart-line"></i>
-            Analytics
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fas fa-cog"></i>
-            Settings
-          </a>
-        </li>
-        <li>
-          <a href="index.html">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-          </a>
-        </li>
-      </ul>
-    </aside>
+      <h1>Loan Application System</h1>
+      <p class="subtitle">Admin Applications Dashboard</p>
+    </header>
     
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="top-bar">
-        <div>
-          <div class="page-title">
-            <i class="fas fa-file-contract"></i>
-            Manage Applications
-          </div>
-          <div class="page-subtitle">Review and process loan applications</div>
-        </div>
-        
-        <div class="user-info">
-          <div class="user-avatar">JD</div>
-          <div>
-            <div>Jane Doe</div>
-            <div style="font-size: 13px; color: #bbdefb;">Administrator</div>
-          </div>
-        </div>
-      </div>
+    <div class="navigation">
+      <a href="index.html" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Application
+      </a>
+      <button id="refresh-btn" class="btn">
+        <i class="fas fa-sync-alt"></i> Refresh Applications
+      </button>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <label for="limit">Show</label>
+      <select id="limit">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50" selected>50</option>
+        <option value="100">100</option>
+      </select>
       
-      <!-- Filter Bar -->
-      <div class="filter-bar">
-        <label for="limit">Show</label>
-        <select id="limit">
-          <option value="25">25</option>
-          <option value="100" selected>100</option>
-          <option value="200">200</option>
-          <option value="500">500</option>
-        </select>
-        <label for="status-filter">Status</label>
-        <select id="status-filter">
-          <option value="all">All Statuses</option>
-          <option value="approved">Approved</option>
-          <option value="pending">Pending</option>
-          <option value="rejected">Rejected</option>
-        </select>
-        <input type="text" id="search" placeholder="Search applications...">
-        <button id="refresh">
-          <i class="fas fa-sync-alt"></i> Refresh
-        </button>
-        <span id="status" style="color: #bbdefb; margin-left: auto;">Click Refresh to load data</span>
-      </div>
+      <label for="status-filter">Status</label>
+      <select id="status-filter">
+        <option value="all">All Statuses</option>
+        <option value="approved">Approved</option>
+        <option value="pending">Pending</option>
+        <option value="rejected">Rejected</option>
+      </select>
       
-      <!-- Applications Table -->
-      <div class="table-container">
-        <div id="empty-state" class="empty-state">
-          <i class="fas fa-database"></i>
-          <h3>No Data Loaded</h3>
-          <p>Click the Refresh button to load application data</p>
-        </div>
-        
-        <table id="applications-table" style="display: none;">
-          <thead>
-            <tr>
-              <th>Application ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Parish</th>
-              <th>Term</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="table-body">
-            <!-- Table rows will be populated by JavaScript -->
-          </tbody>
-        </table>
+      <input type="text" id="search" placeholder="Search applications...">
+      
+      <span id="status" class="status">Click Refresh to load applications</span>
+    </div>
+    
+    <!-- Applications Table -->
+    <div class="table-container">
+      <table id="applications-table">
+        <thead>
+          <tr>
+            <th>Application ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Parish</th>
+            <th>Term</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+      </table>
+      
+      <div id="empty-state" class="empty-state">
+        <i class="fas fa-database"></i>
+        <h3>No Applications Loaded</h3>
+        <p>Click the Refresh button to load application data</p>
       </div>
-    </main>
+    </div>
+    
+    <footer>
+      <p>Loan Application System &copy; 2025 | Dox Services</p>
+      <p><i class="fas fa-lock"></i> Your data is protected with bank-level security</p>
+    </footer>
   </div>
 
   <script>
+    // Sample data for demonstration
+    const sampleApplications = [
+      {
+        application_id: 'APP-00125',
+        first_name: 'John',
+        last_name: 'Smith',
+        email: 'john.smith@example.com',
+        phone_full: '(876) 123-4567',
+        address1: '123 Main Street',
+        address2: 'Kingston 10',
+        parish: 'Kingston',
+        term_months: '12',
+        loan_amount: '150,000',
+        status: 'pending',
+        created_at: '2025-08-18T10:30:00Z'
+      },
+      {
+        application_id: 'APP-00124',
+        first_name: 'Sarah',
+        last_name: 'Johnson',
+        email: 'sarahj@example.com',
+        phone_full: '(876) 234-5678',
+        address1: '45 Oak Avenue',
+        address2: '',
+        parish: 'St. Andrew',
+        term_months: '18',
+        loan_amount: '250,000',
+        status: 'approved',
+        created_at: '2025-08-17T14:22:00Z'
+      },
+      {
+        application_id: 'APP-00123',
+        first_name: 'Michael',
+        last_name: 'Brown',
+        email: 'm.brown@example.com',
+        phone_full: '(876) 345-6789',
+        address1: '78 Pine Road',
+        address2: 'Apartment 5B',
+        parish: 'St. Catherine',
+        term_months: '6',
+        loan_amount: '100,000',
+        status: 'pending',
+        created_at: '2025-08-16T09:15:00Z'
+      },
+      {
+        application_id: 'APP-00122',
+        first_name: 'Emily',
+        last_name: 'Davis',
+        email: 'emilyd@example.com',
+        phone_full: '(876) 456-7890',
+        address1: '22 Cherry Lane',
+        address2: '',
+        parish: 'Portland',
+        term_months: '12',
+        loan_amount: '75,000',
+        status: 'rejected',
+        created_at: '2025-08-15T16:45:00Z'
+      },
+      {
+        application_id: 'APP-00121',
+        first_name: 'Robert',
+        last_name: 'Wilson',
+        email: 'rwilson@example.com',
+        phone_full: '(876) 567-8901',
+        address1: '90 Maple Street',
+        address2: '',
+        parish: 'St. James',
+        term_months: '24',
+        loan_amount: '200,000',
+        status: 'approved',
+        created_at: '2025-08-14T11:20:00Z'
+      }
+    ];
+
     // Function to escape HTML to prevent XSS
     function esc(s) {
       if (s == null) return '';
@@ -461,8 +416,8 @@
     }
 
     // Function to fetch and display applications
-    async function fetchApplications() {
-      const limit = document.getElementById('limit').value || 100;
+    function fetchApplications() {
+      const limit = document.getElementById('limit').value || 50;
       const statusFilter = document.getElementById('status-filter').value;
       const searchTerm = document.getElementById('search').value.toLowerCase();
       const statusElement = document.getElementById('status');
@@ -471,91 +426,11 @@
       
       statusElement.textContent = 'Loading...';
       
-      try {
+      // Simulate API call delay
+      setTimeout(() => {
         // In a real application, you would fetch from your API
-        // const res = await fetch(`/applications?limit=${encodeURIComponent(limit)}`, {
-        //   headers: {
-        //     'Accept': 'application/json',
-        //     'x-api-key': 'YOUR_KEY'
-        //   }
-        // });
-        
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
-        // For demo purposes, we'll use sample data
-        let applications = [
-          {
-            application_id: 'APP-00125',
-            first_name: 'John',
-            last_name: 'Smith',
-            email: 'john.smith@example.com',
-            phone_full: '(876) 123-4567',
-            address1: '123 Main Street',
-            address2: 'Kingston 10',
-            parish: 'Kingston',
-            term_months: '12',
-            loan_amount: '150,000',
-            status: 'pending',
-            created_at: '2025-08-18T10:30:00Z'
-          },
-          {
-            application_id: 'APP-00124',
-            first_name: 'Sarah',
-            last_name: 'Johnson',
-            email: 'sarahj@example.com',
-            phone_full: '(876) 234-5678',
-            address1: '45 Oak Avenue',
-            address2: '',
-            parish: 'St. Andrew',
-            term_months: '18',
-            loan_amount: '250,000',
-            status: 'approved',
-            created_at: '2025-08-17T14:22:00Z'
-          },
-          {
-            application_id: 'APP-00123',
-            first_name: 'Michael',
-            last_name: 'Brown',
-            email: 'm.brown@example.com',
-            phone_full: '(876) 345-6789',
-            address1: '78 Pine Road',
-            address2: 'Apartment 5B',
-            parish: 'St. Catherine',
-            term_months: '6',
-            loan_amount: '100,000',
-            status: 'pending',
-            created_at: '2025-08-16T09:15:00Z'
-          },
-          {
-            application_id: 'APP-00122',
-            first_name: 'Emily',
-            last_name: 'Davis',
-            email: 'emilyd@example.com',
-            phone_full: '(876) 456-7890',
-            address1: '22 Cherry Lane',
-            address2: '',
-            parish: 'Portland',
-            term_months: '12',
-            loan_amount: '75,000',
-            status: 'rejected',
-            created_at: '2025-08-15T16:45:00Z'
-          },
-          {
-            application_id: 'APP-00121',
-            first_name: 'Robert',
-            last_name: 'Wilson',
-            email: 'rwilson@example.com',
-            phone_full: '(876) 567-8901',
-            address1: '90 Maple Street',
-            address2: '',
-            parish: 'St. James',
-            term_months: '24',
-            loan_amount: '200,000',
-            status: 'approved',
-            created_at: '2025-08-14T11:20:00Z'
-          }
-        ];
+        // For demo purposes, we'll use the sample data
+        let applications = sampleApplications;
         
         // Apply filters
         if (statusFilter !== 'all') {
@@ -579,7 +454,7 @@
         
         if (applications.length === 0) {
           tableElement.style.display = 'none';
-          emptyStateElement.style.display = 'flex';
+          emptyStateElement.style.display = 'block';
           statusElement.textContent = 'No applications found';
           return;
         }
@@ -620,10 +495,7 @@
         }
         
         statusElement.textContent = `Loaded ${applications.length} application(s)`;
-      } catch (error) {
-        console.error('Error fetching applications:', error);
-        statusElement.textContent = 'Error loading applications';
-      }
+      }, 800);
     }
 
     // Function to view application details
@@ -642,10 +514,10 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Initially hide the table and show empty state
       document.getElementById('applications-table').style.display = 'none';
-      document.getElementById('empty-state').style.display = 'flex';
+      document.getElementById('empty-state').style.display = 'block';
       
       // Set up refresh button
-      document.getElementById('refresh').addEventListener('click', fetchApplications);
+      document.getElementById('refresh-btn').addEventListener('click', fetchApplications);
       
       // Set up filter change events
       document.getElementById('limit').addEventListener('change', fetchApplications);
@@ -656,15 +528,6 @@
       document.getElementById('search').addEventListener('input', function() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(fetchApplications, 300);
-      });
-      
-      // Highlight active nav item
-      const navLinks = document.querySelectorAll('.nav-links a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          navLinks.forEach(l => l.classList.remove('active'));
-          this.classList.add('active');
-        });
       });
     });
   </script>
