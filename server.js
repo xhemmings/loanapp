@@ -64,4 +64,6 @@ app.get('/applications', requireApiKey, async (req, res) => {
 app.use(express.static('public'));
 app.use((_req, res) => res.status(404).json({ ok:false, error:'Not found' }));
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server listening on ${port}`));
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening on http://0.0.0.0:${port}`);
+});
