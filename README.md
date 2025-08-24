@@ -1,3 +1,1 @@
-# LoanApp Admin + Test
-Local: npm i && npm start -> /health, /test.html, /admin.html
-Render: set DATABASE_URL (internal URL). Optional API_KEY to protect routes.
+Deploy to Render. Set DATABASE_URL in service env. Binds to 0.0.0.0:$PORT. Static: / (index), /admin.html, /test.html; API: /apply, /applications, /health.
