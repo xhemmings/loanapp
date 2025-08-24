@@ -293,14 +293,26 @@
       background-color: #1a2a6c;
       color: #fff;
     }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #4caf50;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-left: 10px;
+    }
 </style>
 </head>
 <body>
   <div class="container">
     <!-- Navigation Bar -->
     <div class="user-info">
-      <a href="user-profile.html" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back
+      <a href="#" class="btn btn-secondary">
+        <i class="fas fa-user"></i> Profile
+      </a>
+      <a href="#" class="btn btn-secondary">
+        <i class="fas fa-question-circle"></i> Help
       </a>
     </div>
     
@@ -312,28 +324,17 @@
       <p class="subtitle">Complete your application in just a few steps</p>
     </header>
     
-    <!-- Promotion Selection -->
+    <!-- Promotion Card -->
     <div class="card">
       <div class="card-title">
-        <i class="fas fa-percentage"></i> Select Promotion
-      </div>
-      
-      <div class="form-group">
-        <label for="promoSelect">Choose a loan promotion</label>
-        <select id="promoSelect" name="promotionId">
-          <option value="">Select a promotion</option>
-          <option value="1">Homeowner Advantage - 4.25%</option>
-          <option value="2">Business Growth - 5.75%</option>
-          <option value="3">Education Support - 3.99%</option>
-          <option value="4">Medical Assistance - 4.5%</option>
-        </select>
+        <i class="fas fa-percentage"></i> Loan Offer
       </div>
       
       <div class="promo-card">
         <h3>Homeowner Advantage</h3>
-        <p><strong>Interest Rate:</strong> 4.25% monthly</p>
-        <p><strong>Loan Amount:</strong> $10,000 - $100,000</p>
-                <p><strong>Eligibility:</strong> Homeowners with at least 2 years of employment</p>
+        <p><strong>Loan Amount:</strong> $50,000</p>
+        <p><strong>Status:</strong> Approved <span class="status-badge">Confirmed</span></p>
+        <p><strong>Term:</strong> 3 months</p>
       </div>
     </div>
     
@@ -343,9 +344,7 @@
         <i class="fas fa-user-edit"></i> Applicant Information
       </div>
       
-      <form id="appForm" action="/apply" method="POST">
-        
-        
+      <form id="appForm" action="admin-applications.html" method="POST">
         <div class="form-grid">
           <div class="form-group">
             <label for="firstName">First Name</label>
@@ -362,21 +361,19 @@
             <input type="email" id="email" name="email" required>
           </div>
           
-          
-<div class="form-group">
-  <label for="phone">Phone Number</label>
-  <div class="formatted-input-group">
-    <select id="phone-area" name="phoneArea" class="formatted-input" style="flex: 1; border-radius: 8px 0 0 8px;">
-      <option value="876">(876)</option>
-      <option value="658">(658)</option>
-    </select>
-    <div class="hyphen">-</div>
-    <input type="text" id="phone-mid" name="phoneMid" class="formatted-input" maxlength="3" placeholder="123" style="flex: 1;">
-    <div class="hyphen">-</div>
-    <input type="text" id="phone-last" name="phoneLast" class="formatted-input" maxlength="4" placeholder="4567" style="flex: 2;">
-  </div>
-</div>
-
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="formatted-input-group">
+              <select id="phone-area" name="phoneArea" class="formatted-input" style="flex: 1; border-radius: 8px 0 0 8px;">
+                <option value="876">(876)</option>
+                <option value="658">(658)</option>
+              </select>
+              <div class="hyphen">-</div>
+              <input type="text" id="phone-mid" name="phoneMid" class="formatted-input" maxlength="3" placeholder="123" style="flex: 1;">
+              <div class="hyphen">-</div>
+              <input type="text" id="phone-last" name="phoneLast" class="formatted-input" maxlength="4" placeholder="4567" style="flex: 2;">
+            </div>
+          </div>
           
           <div class="form-group">
             <label for="trn">TRN (Tax Registration Number)</label>
@@ -420,34 +417,18 @@
             </select>
           </div>
           
-          <div class="form-group">
-            <label for="termSelect">Loan Term (months)</label>
-            <select id="termSelect" name="selectedTermMonths">
-              <option value="12">12 months</option>
-              <option value="24">24 months</option>
-              <option value="36" selected>36 months</option>
-            </select>
-          </div>
-          
           <div class="form-group full-width">
-            <label for="photoId">
-              <i class="fas fa-id-card"></i> Upload Photo ID
+            <label for="photo">
+              <i class="fas fa-camera"></i> Upload Photo
             </label>
-            <input type="file" id="photoId" accept="image/*">
-          </div>
-          
-          <div class="form-group full-width">
-            <label for="payslips">
-              <i class="fas fa-file-invoice"></i> Upload Payslips (PDF or image)
-            </label>
-            <input type="file" id="payslips" multiple accept="application/pdf,image/*">
+            <input type="file" id="photo" accept="image/*">
           </div>
         </div>
       </form>
     </div>
     
     <div class="actions-bar">
-      <a href="user-profile.html" class="btn btn-secondary">
+      <a href="#" class="btn btn-secondary">
         <i class="fas fa-times"></i> Cancel
       </a>
       <button class="btn" type="submit" form="appForm">
@@ -479,58 +460,6 @@
       }
     });
     
-          // Limit to 7 digits
-      if (value.length > 7) {
-        value = value.substring(0, 7);
-      }
-      
-      // Format with hyphen
-      if (value.length > 3) {
-        value = value.substring(0, 3) + '-' + value.substring(3);
-      }
-      
-      this.value = value;
-    });
-    
-    // Update promotion details
-    document.getElementById('promoSelect').addEventListener('change', function() {
-      const promoCard = document.querySelector('.promo-card');
-      const value = this.value;
-      
-      if (value === "1") {
-        promoCard.innerHTML = `
-          <h3>Homeowner Advantage</h3>
-          <p><strong>Interest Rate:</strong> 4.25% monthly</p>
-          <p><strong>Loan Amount:</strong> $10,000 - $100,000</p>
-                    <p><strong>Eligibility:</strong> Homeowners with at least 2 years of employment</p>
-        `;
-      } else if (value === "2") {
-        promoCard.innerHTML = `
-          <h3>Business Growth</h3>
-          <p><strong>Interest Rate:</strong> 5.75% monthly</p>
-          <p><strong>Loan Amount:</strong> $5,000 - $50,000</p>
-                    <p><strong>Eligibility:</strong> Registered businesses with 1+ year operation</p>
-        `;
-      } else if (value === "3") {
-        promoCard.innerHTML = `
-          <h3>Education Support</h3>
-          <p><strong>Interest Rate:</strong> 3.99% monthly</p>
-          <p><strong>Loan Amount:</strong> $2,000 - $25,000</p>
-                    <p><strong>Eligibility:</strong> Students and parents with proof of enrollment</p>
-        `;
-      } else if (value === "4") {
-        promoCard.innerHTML = `
-          <h3>Medical Assistance</h3>
-          <p><strong>Interest Rate:</strong> 4.5% monthly</p>
-          <p><strong>Loan Amount:</strong> $1,000 - $20,000</p>
-                    <p><strong>Eligibility:</strong> Medical bills verification required</p>
-        `;
-      } else {
-        promoCard.innerHTML = '<p>Select a promotion to view details</p>';
-      }
-    });
-    
-    // Form submission
     // Add animations
     document.querySelectorAll('.card').forEach((card, index) => {
       card.style.opacity = '0';
@@ -557,7 +486,6 @@
         phoneLast.value = digits.substring(3, 7);
       }
     });
-
-</script>
+  </script>
 </body>
 </html>
